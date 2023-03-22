@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import CodePush from "react-native-code-push";
+import AuthScreen from "./screens/AuthScreen";
 
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -17,9 +18,9 @@ export class App extends Component {
   }
   render() {
     return (
-      <View>
-        <Text>Code push App</Text>
-      </View>
+      <>
+        <AuthScreen/>
+      </>
     )
   }
 }

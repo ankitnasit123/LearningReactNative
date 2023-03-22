@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+[
+  <View
+    style={
+      {
+        "alignItems": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "skyblue",
+            "display": "none",
+            "fontSize": 24,
+          },
+        ]
+      }
+    >
+      Self Register. .
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "color": "skyblue",
+            "fontSize": 24,
+          },
+        ]
+      }
+    />
+  </View>,
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Enter user id"
+    secureTextEntry={false}
+    style={
+      {
+        "borderRadius": 8,
+        "borderStyle": "dashed",
+        "borderWidth": 0.5,
+        "marginHorizontal": 8,
+        "marginVertical": 8,
+      }
+    }
+    value=""
+  />,
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Enter pass code"
+    secureTextEntry={true}
+    style={
+      {
+        "borderRadius": 8,
+        "borderStyle": "dashed",
+        "borderWidth": 0.5,
+        "marginHorizontal": 8,
+        "marginVertical": 8,
+      }
+    }
+    value=""
+  />,
+]
+`;
