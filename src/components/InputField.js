@@ -9,9 +9,11 @@ const InputField = props => {
       <TextInput
         style={styles?.default}
         placeholder={props?.placeholder}
-        onChangeText={(val)=>{props?.onChangeText(val)}}
+        onChangeText={props?.onChangeText}
+        onBlur={props?.onBlur}
         value={props?.value}
         secureTextEntry={props?.secureTextEntry}
+        keyboardType={props?.keyboardType}
       />
     </>
   );
