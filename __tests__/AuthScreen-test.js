@@ -11,6 +11,7 @@ import { shallow, mount, render } from 'enzyme';
 test('renders correctly', () => {
   const snapshot = renderer.create(<AuthScreen />).toJSON();
   console.log(snapshot);
+  console.log(snapshot?.children);
   expect(snapshot).toMatchSnapshot();
 });
 
