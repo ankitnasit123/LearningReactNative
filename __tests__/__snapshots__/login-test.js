@@ -9,11 +9,11 @@ describe('Login', () => {
       const { getByTestId } = render(<Login />);
 
       // use fireEvent change value TextInput
-      fireEvent.changeText(getByTestId('username'), 'admin');
+      fireEvent.changeText(getByTestId('username'), 'admin1');
       fireEvent.changeText(getByTestId('password'), 'admin@123');
 
       // use toEqual check value TextInput
-      expect(getByTestId('username').props.value).toEqual('admin');
+      expect(getByTestId('username').props.value).toEqual('admin1');
       expect(getByTestId('password').props.value).toEqual('admin@123');
     });
 

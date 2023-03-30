@@ -1,51 +1,33 @@
-import 'react-native';
 import React from 'react';
-import 'react-native';
+import {render, fireEvent} from 'react-native-testing-library';
 import AuthScreen from '../src/screens/AuthScreen';
-import TestFuncationScreen from '../src/screens/TestFuncationScreen';
-import { act, create } from 'react-test-renderer';
-import renderer from 'react-test-renderer';
-import { shallow, mount, render } from 'enzyme';
 
-// uncomment if you want to compare with snapshot of code
-test('renders correctly', () => {
-  const snapshot = renderer.create(<AuthScreen />).toJSON();
-  console.log(snapshot);
-  console.log(snapshot?.children);
-  expect(snapshot).toMatchSnapshot();
+describe('AuthScreen', () => {
+  describe('auth test',()=>{
+    it('change form values( name, email, phoneNumber, password, confirmPassword)', () => {
+      const data = {"name": 'ankit', "email": 'ankitnasit@gmail.com', "phonNumber":'8980605594', "password":'123456', "confirmPassword":'123456'};
+      const submitHandler = jest.fn();
+  
+      const {getByTestId} = render(<AuthScreen Auth={submitHandler} />);
+      // use fireEvent change value TextInput
+      fireEvent.changeText(getByTestId('name'), 'ankit');
+      fireEvent.changeText(getByTestId('email'), 'ankitnasit@gmail.com');
+      fireEvent.changeText(getByTestId('phoneNumber'), '8980605594');
+      fireEvent.changeText(getByTestId('password'), '123456');
+      fireEvent.changeText(getByTestId('confirmPassword'), '123456');
+  
+      // use toEqual check value TextInput
+    //  expect(getByTestId('name').props.value).toEqual('ankit');
+      expect(getByTestId('email').props.value).toEqual('ankitnasit@gmail.com');
+      expect(getByTestId('phoneNumber').props.value).toEqual('8980605594');
+      expect(getByTestId('password').props.value).toEqual('123456');
+      expect(getByTestId('confirmPassword').props.value).toEqual('123456');
+  
+      //use fireEvent.press call Button submit
+      fireEvent.press(getByTestId('Submit'));
+  
+      //checking output data equal input
+      expect(submitHandler).toHaveBeenCalledWith(data);
+    });
+  })
 });
-
-//funcational components
-//  test('funcational components',()=>{
-//     const data = renderer(<AuthScreen/>);
-//     console.log({data});
-//  })
-
-//in progress with funcational compoent funcation test cases
-// test('funcation testing', () => {\
-//   let wrapper = create(<AuthScreen />);
-//   const root = wrapper.root;
-//   const btn = root.findByType(Button);
-
-//   act(() => {
-//     btn.props.onPress();
-//   });
-//   expect(wrapper.toJSON()).toMatchSnapshot();
-// });
-
-//funcation test with test funcation screen
-// test('funcation testing',()=>{
-//     const TestFuncationScreenRef = renderer.create(<TestFuncationScreen/>).getInstance();
-//     console.log({TestFuncationScreenRef});
-//     const input = TestFuncationScreenRef?.getData(2);
-//     console.log({input});
-//     expect(TestFuncationScreenRef.state.counter).toEqual(12);
-// })
-
-// TDD using enzyme
-// describe("AuthScreen",()=>{
-//     it("should render my component",()=>{
-//         const wrapper = shallow(<AuthScreen/>);
-//         console.log({wrapper});
-//     })
-// })

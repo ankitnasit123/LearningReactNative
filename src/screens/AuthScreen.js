@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import InputField from '../components/InputField';
 import ErrorText from '../components/ErrorText';
 
-const AuthScreen = () => {
+const AuthScreen = props => {
   let initialValues = {
     name: '',
     email: '',
@@ -15,27 +15,47 @@ const AuthScreen = () => {
   };
   const [data, _data] = useState(initialValues);
 
+  _onSubmitReg = () => {
+    // Do something...
+
+    const {Auth} = props;
+    console.log({Auth});
+    if (Auth) {
+      Auth(initialValues);
+    }
+  };
+
   return (
     <>
       <Formik
         initialValues={data}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => {
+          console.log(values);
+          const {Auth} = props;
+          console.log({Auth});
+          if (Auth) {
+            Auth(initialValues);
+          }
+        }}
         validationSchema={yup.object().shape({
           name: yup.string().required('Please, provide your name!'),
           email: yup.string().email().required(),
           phoneNumber: yup.string().required(),
           password: yup
-          .string()
-          .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
-          .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
-          .matches(/\d/, "Password must have a number")
-          .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
-          .min(8, ({ min }) => `Password must be at least ${min} characters`)
-          .required('Password is required'),
+            .string()
+            .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
+            .matches(/\w*[A-Z]\w*/, 'Password must have a capital letter')
+            .matches(/\d/, 'Password must have a number')
+            .matches(
+              /[!@#$%^&*()\-_"=+{}; :,<.>]/,
+              'Password must have a special character',
+            )
+            .min(8, ({min}) => `Password must be at least ${min} characters`)
+            .required('Password is required'),
           confirmPassword: yup
-          .string()
-          .oneOf([yup.ref('password')], 'Passwords do not match')
-          .required('Confirm password is required'),
+            .string()
+            .oneOf([yup.ref('password')], 'Passwords do not match')
+            .required('Confirm password is required'),
         })}>
         {({
           handleChange,
@@ -50,6 +70,7 @@ const AuthScreen = () => {
           <View>
             <InputField
               onChangeText={handleChange('name')}
+              testID="name"
               value={values.name}
               onBlur={() => setFieldTouched('name')}
               secureTextEntry={false}
@@ -58,6 +79,7 @@ const AuthScreen = () => {
             {touched.name && errors.name && <ErrorText text={errors.name} />}
             <InputField
               onChangeText={handleChange('email')}
+              testID="email"
               value={values.email}
               onBlur={() => setFieldTouched('email')}
               secureTextEntry={false}
@@ -67,6 +89,7 @@ const AuthScreen = () => {
             {touched.email && errors.email && <ErrorText text={errors.email} />}
             <InputField
               onChangeText={handleChange('phoneNumber')}
+              testID="phoneNumber"
               value={values.phoneNumber}
               onBlur={() => setFieldTouched('phoneNumber')}
               secureTextEntry={false}
@@ -78,6 +101,7 @@ const AuthScreen = () => {
             )}
             <InputField
               onChangeText={handleChange('password')}
+              testID="password"
               value={values.password}
               onBlur={() => setFieldTouched('password')}
               secureTextEntry={false}
@@ -88,6 +112,7 @@ const AuthScreen = () => {
             )}
             <InputField
               onChangeText={handleChange('confirmPassword')}
+              testID="confirmPassword"
               value={values.confirmPassword}
               onBlur={() => setFieldTouched('confirmPassword')}
               secureTextEntry={false}
@@ -96,7 +121,12 @@ const AuthScreen = () => {
             {touched.confirmPassword && errors.confirmPassword && (
               <ErrorText text={errors.confirmPassword} />
             )}
-            <Button onPress={handleSubmit} disabled={!isValid} title="Submit" />
+            <Button
+              testID="Submit"
+              onPress={_onSubmitReg}
+              disabled={!isValid}
+              title="Submit"
+            />
           </View>
         )}
       </Formik>

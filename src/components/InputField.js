@@ -8,6 +8,7 @@ const InputField = props => {
     <>
       <TextInput
         style={styles?.default}
+        testID={props?.testID}
         placeholder={props?.placeholder}
         onChangeText={props?.onChangeText}
         onBlur={props?.onBlur}
